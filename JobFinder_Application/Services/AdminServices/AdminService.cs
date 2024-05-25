@@ -64,16 +64,15 @@ namespace JobFinder_Application.Services.AdminServices
 			await _categoryRepository.CreateAsync(category);
 		}
 
-		public async Task UpdateCategoryAsync(AdminCategoryVM categoryVM)
+		public async Task UpdateCategoryAsync(AdminUpdateCategoryVM categoryVM)
 		{
-			var category = _mapper.Map<Category>(categoryVM);
+			var updatedCategory =  _mapper.Map<Category>(categoryVM);
 
-			if (category is not null)
+			if (updatedCategory is not null)
 			{
-				await _categoryRepository.UpdateAsync(category);
+				await _categoryRepository.UpdateAsync(updatedCategory);
 				await _categoryRepository.SaveChangesAsync();
 			}
-			await _categoryRepository.UpdateAsync(category!);
 		}
 
 		public async Task DeleteCategoryAsync(int id)

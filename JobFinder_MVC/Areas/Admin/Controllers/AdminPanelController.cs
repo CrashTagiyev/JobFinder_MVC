@@ -47,12 +47,12 @@ namespace JobFinder_Presentation.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> UpdateVacancy(AdminVacancyVM vacancyVM)
 		{
-				if (vacancyVM is not null)
-				{
-					await _adminService.UpdateVacancyAsync(vacancyVM);
-					return RedirectToAction("GetVacancies");
+			if (vacancyVM is not null)
+			{
+				await _adminService.UpdateVacancyAsync(vacancyVM);
+				return RedirectToAction("GetVacancies");
 
-				}
+			}
 
 			return View(vacancyVM);
 
@@ -79,7 +79,7 @@ namespace JobFinder_Presentation.Areas.Admin.Controllers
 
 
 		[HttpGet]
-		public  IActionResult CreateCategory()
+		public IActionResult CreateCategory()
 		{
 			return RedirectToAction("GetCategories");
 		}
@@ -93,15 +93,18 @@ namespace JobFinder_Presentation.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> UpdateCategory(int id)
 		{
-			var categoryVM = _adminService.GetCategoryByIdAsync(id);
-			if (categoryVM is not null)
-			{
-				await _adminService.UpdateCategoryAsync(categoryVM);
-				return RedirectToAction("GetVacancies");
+			var categoryVM = await _adminService.GetCategoryByIdAsync(id);
 
-			}
+			var updateVm = new AdminUpdateCategoryVM { Id = categoryVM.Id, Name = categoryVM!.Name! };
 
-			return View(categoryVM);
+			return View(updateVm);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> UpdateCategory(AdminUpdateCategoryVM categoryVM)
+		{
+			await _adminService.UpdateCategoryAsync(categoryVM);
+			return RedirectToAction("GetCategories");
 		}
 
 

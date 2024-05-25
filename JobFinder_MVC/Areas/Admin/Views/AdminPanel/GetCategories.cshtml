@@ -31,7 +31,7 @@
 					<td>@category.Name</td>
 					<td>
 						<div>
-							<form method="post" asp-area="Admin" asp-controller="AdminPanel" asp-action="Update">
+							<form method="get" asp-area="Admin" asp-controller="AdminPanel" asp-action="UpdateCategory">
 								<input type="hidden" name="id" value="@category.Id" />
 								<button type="submit" style="color:black !important;">Update</button>
 							</form>

@@ -1,0 +1,14 @@
+﻿@model AdminUpdateCategoryVM
+
+
+<form asp-area="Admin" asp-controller="AdminPanel" asp-action="UpdateCategory" method="post">
+	<div class="mb-3">
+		<label asp-for="Name" class="form-label"></label>
+		<input asp-for="Name" class="form-control" value="@Model.Name" type="text" />
+		<input asp-for="Id" class="form-control" value="@Model.Id" type="hidden" />
+	</div>
+	<button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+
+

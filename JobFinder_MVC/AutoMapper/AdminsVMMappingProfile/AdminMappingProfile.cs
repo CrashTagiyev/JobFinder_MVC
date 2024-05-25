@@ -15,8 +15,11 @@ namespace JobFinder_Presentation.AutoMapper.AdminsVMMappingProfile
             CreateMap<AppUser, AdminUserVM>();
             CreateMap<Vacancy, AdminVacancyVM>();
             CreateMap<Company, AdminCompanyVM>();
+            CreateMap<Category, AdminUpdateCategoryVM>();
+            CreateMap<AdminCategoryVM, AdminUpdateCategoryVM>();
 
-            //reverse
+			//reverse
+			CreateMap<AdminUpdateCategoryVM, Category>();
 			CreateMap<AdminCategoryVM, Category>();
 			CreateMap<AdminCreateCategoryVM, Category>();
 			CreateMap<AdminTagVM, Tag>();

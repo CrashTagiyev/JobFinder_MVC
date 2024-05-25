@@ -89,33 +89,33 @@ var dbContext = container.ServiceProvider.GetRequiredService<JobFinderDbContext>
 //await dbContext.Categories.AddAsync(cat3);
 //await dbContext.SaveChangesAsync();
 
-//var employerRole = await roleManager.RoleExistsAsync("Employer");
-//if (!employerRole)
-//    await roleManager.CreateAsync(new IdentityRole("Employer"));
+var employerRole = await roleManager.RoleExistsAsync("Employer");
+if (!employerRole)
+    await roleManager.CreateAsync(new IdentityRole("Employer"));
 
 
-//var adminRole = await roleManager.RoleExistsAsync("Admin");
-//if (!adminRole)
-//    await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
+var adminRole = await roleManager.RoleExistsAsync("Admin");
+if (!adminRole)
+    await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
 
-//var adminUser = await usermanager.FindByNameAsync("AdminEmil");
-//if (adminUser is null)
-//{
-//    var result = await usermanager.CreateAsync(new AppUser
-//    {
-//        UserName = "AdminEmil",
-//        Email = "cavid@gmail.com",
-//        EmailConfirmed = true,
-//        Firstname="Emil",
-//        Lastname="Tagiyev",
-//        PhoneNumber="509999999"
-//    }, "123qweA@");
+var adminUser = await usermanager.FindByNameAsync("AdminEmil");
+if (adminUser is null)
+{
+    var result = await usermanager.CreateAsync(new AppUser
+    {
+        UserName = "AdminEmil",
+        Email = "cavid@gmail.com",
+        EmailConfirmed = true,
+        Firstname = "Emil",
+        Lastname = "Tagiyev",
+        PhoneNumber = "509999999"
+    }, "123qweA@");
 
-//    if (result.Succeeded)
-//    {
-//        var user = await usermanager.FindByNameAsync("AdminEmil");
-//        await usermanager.AddToRoleAsync(user!, "Admin");
-//    }
-//}
+    if (result.Succeeded)
+    {
+        var user = await usermanager.FindByNameAsync("AdminEmil");
+        await usermanager.AddToRoleAsync(user!, "Admin");
+    }
+}
 
 app.Run();
