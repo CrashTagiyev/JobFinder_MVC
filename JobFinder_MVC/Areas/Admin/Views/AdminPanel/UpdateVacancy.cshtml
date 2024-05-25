@@ -1,0 +1,198 @@
+﻿@model AdminVacancyVM
+
+@{
+	var vm = Model;
+}
+
+<h1 class="mb-4">Update Vacancy</h1>
+
+<div style="margin:0px 250px !important;">
+	<form asp-action="UpdateVacancy" method="post" class="needs-validation" novalidate>
+		<input type="hidden" asp-for="Id" value="@Model.Id"/>
+		<div class="mb-3">
+			<label asp-for="Title" class="form-label"></label>
+			<input asp-for="Title" class="form-control" value="@Model.Title" required />
+			<div class="invalid-feedback">
+				Please enter the title.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="JobDescription" class="form-label"></label>
+			<textarea asp-for="JobDescription" class="form-control" rows="4" required>@Model.JobDescription</textarea>
+			<div class="invalid-feedback">
+				Please enter the job description.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Experience" class="form-label"></label>
+			<select asp-for="Experience" class="form-select" asp-items="Html.GetEnumSelectList<ExperienceEnum>()" required>
+				<option value="">Select Experience</option>
+			</select>
+			<div class="invalid-feedback">
+				Please select the experience level.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Gender" class="form-label"></label>
+			<select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<GenderEnum>()" required>
+			</select>
+			<div class="invalid-feedback">
+				Please select the gender.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Education" class="form-label"></label>
+			<select asp-for="Education" class="form-select" asp-items="Html.GetEnumSelectList<EducationDegreeEnum>()" required>
+				<option value="">Select Education</option>
+			</select>
+			<div class="invalid-feedback">
+				Please select the education level.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="JobNature" class="form-label"></label>
+			<select asp-for="JobNature" class="form-select" asp-items="Html.GetEnumSelectList<JobNatureEnum>()" required>
+				<option value="">Select Job Nature</option>
+			</select>
+			<div class="invalid-feedback">
+				Please select the job nature.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="MinimumSalary" class="form-label"></label>
+			<input asp-for="MinimumSalary" class="form-control" value="@Model.MinimumSalary" type="number" step="0.01" required />
+			<div class="invalid-feedback">
+				Please enter the minimum salary.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="MaximumSalary" class="form-label"></label>
+			<input asp-for="MaximumSalary" class="form-control" value="@Model.MaximumSalary" type="number" step="0.01" required />
+			<div class="invalid-feedback">
+				Please enter the maximum salary.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="MinimumAge" class="form-label"></label>
+			<input asp-for="MinimumAge" class="form-control" value="@Model.MinimumAge" type="number" required />
+			<div class="invalid-feedback">
+				Please enter the minimum age.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="MaximumAge" class="form-label"></label>
+			<input asp-for="MaximumAge" class="form-control" value="@Model.MaximumAge" type="number" required />
+			<div class="invalid-feedback">
+				Please enter the maximum age.
+			</div>
+		</div>
+
+		<div class="mb-3 form-check">
+			<input asp-for="AcceptsDisabledApplicants" class="form-check-input" value="@Model.AcceptsDisabledApplicants" />
+			<label asp-for="AcceptsDisabledApplicants" class="form-check-label"></label>
+		</div>
+
+		<div class="mb-3 form-check">
+			<input asp-for="AcceptsIncompleteCV" class="form-check-input" value="@Model.AcceptsIncompleteCV" />
+			<label asp-for="AcceptsIncompleteCV" class="form-check-label"></label>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Region" class="form-label"></label>
+			<input asp-for="Region" class="form-control" value="@Model.Region" required />
+			<div class="invalid-feedback">
+				Please enter the region.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Address" class="form-label"></label>
+			<input asp-for="Address" class="form-control" value="@Model.Address" required />
+			<div class="invalid-feedback">
+				Please enter the address.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="ContactPersonName" class="form-label"></label>
+			<input asp-for="ContactPersonName" class="form-control" value="@Model.ContactPersonName" required />
+			<div class="invalid-feedback">
+				Please enter the contact person name.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Email" class="form-label"></label>
+			<input asp-for="Email" class="form-control" value="@Model.Email" type="email" required />
+			<div class="invalid-feedback">
+				Please enter a valid email address.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="PhoneNumber" class="form-label"></label>
+			<input asp-for="PhoneNumber" class="form-control" value="@Model.PhoneNumber" type="tel" required />
+			<div class="invalid-feedback">
+				Please enter a valid phone number.
+			</div>
+		</div>
+		@{
+			var applicationDate = Model.ApplicationDate.Value.ToString("yyyy-MM-dd");
+			var createdTime = Model.CreatedTime.Value.ToString("yyyy-MM-dd");
+		}
+		<div class="mb-3">
+			<label asp-for="ApplicationDate" class="form-label"></label>
+			<input asp-for="ApplicationDate" class="form-control" type="date" value="@applicationDate" />
+			<div class="invalid-feedback">
+				Please enter the application date.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="CreatedTime" class="form-label"></label>
+			<input asp-for="CreatedTime" class="form-control" type="date" value="@createdTime" readonly />
+			<div class="invalid-feedback">
+				Please enter the created time.
+			</div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Company.CompanyName" class="form-label"></label>
+			<input asp-for="Company.CompanyName" class="form-control" value="@Model.Company?.CompanyName" readonly />
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Category.Name" class="form-label"></label>
+			<input asp-for="Category.Name" class="form-control" value="@Model.Category?.Name" readonly />
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Tags" class="form-label"></label>
+			@if (Model.Tags != null && Model.Tags.Any())
+			{
+				<ul class="list-group">
+					@foreach (var tag in Model.Tags)
+					{
+						<li class="list-group-item">@tag.Name</li>
+					}
+				</ul>
+			}
+			else
+			{
+				<p>No Tags</p>
+			}
+		</div>
+
+		<button type="submit" class="btn btn-primary">Update</button>
+	</form>
+</div>
+

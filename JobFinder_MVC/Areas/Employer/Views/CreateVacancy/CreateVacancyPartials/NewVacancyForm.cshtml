@@ -1,0 +1,319 @@
+﻿@using JobFinder_Domain.Entities.Concretes
+@model VacancyVM
+
+<style>
+	.btn-check:checked + .btn {
+		background-color: #007bff;
+		color: white;
+	}
+</style>
+
+@{
+	var categories = ViewData["newVacancyCategories"] as SelectList;
+}
+
+<form asp-action="CreateVacancy" enctype="multipart/form-data" asp-controller="CreateVacancy">
+	<div asp-validation-summary="All" style="color:red;text-align:center"></div>
+	<div class="mt-3">
+		<div class="container mb-5">
+			<div class="forborders">
+				<div class="container">
+					<div class="row">
+						<h4 class="pb-2 pl-2">Vakansiyanın Detalları</h4>
+
+						@* Title *@
+						<div class="col-12">
+							<div class="input-group mb-3">
+								<input asp-for="Title" type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1">
+								<span asp-validation-for="Title" class="text-danger"></span>
+							</div>
+						</div>
+
+						@* Company name *@
+						<div class="col-12">
+							<div class="input-group mb-3">
+								<input asp-for="Company!.CompanyName" type="text" class="form-control" placeholder="Company name" aria-label="Username" aria-describedby="basic-addon1">
+							</div>
+						</div>
+
+						@* Category *@
+						<div class="col-lg-3 col-md-6 col-xs-12 pb-2">
+							Category:
+							<select id='seluser' title="Category" asp-for="CategoryId" asp-items="categories" selected="selected"></select>
+						</div>
+
+						@* Tags *@
+
+						<div class="form-group">
+							<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tagsContainer" aria-expanded="false" aria-controls="tagsContainer">
+								Add Tags
+							</button>
+							<div class="collapse mt-3" id="tagsContainer">
+								<div class="card card-body flex-container" style="display:flex;flex-direction:row;gap:5px;flex-wrap:wrap">
+
+									@{
+										var tags = ViewData["tags"] as MultiSelectList;
+									}
+									@if (tags != null)
+									{
+										foreach (var tag in tags)
+										{
+											<div class="form-check form-check-inline">
+												<input type="checkbox" class="btn-check" id="tag_@tag.Value" name="TagsIds" value="@tag.Value" autocomplete="off" />
+												<label class="btn btn-outline-primary" for="tag_@tag.Value">@tag.Text</label>
+											</div>
+										}
+									}
+
+								</div>
+							</div>
+						</div>
+
+						@* Application date *@
+						<div class="col-lg-3 col-md-6 col-xs-12 pb-2">
+							<div class="input-group " style="display:flex;flex-direction:column;">
+								<label>Application date:</label>
+								<input asp-for="ApplicationDate" type="date" class="datepicker" style="width:100px; border:1px solid brown;" placeholder="Vakansiyanın URL linki" aria-label="Username" aria-describedby="basic-addon1">
+							</div>
+						</div>
+
+						@* Company logo  image*@
+						<div class="col-lg-3 col-md-6 col-xs-12 pb-2">
+							<div class="form-group">
+								<label for="imageFile">Choose an image</label>
+								<input type="file" class="form-control" asp-for="Company!.CompanyImageFile">
+							</div>
+						</div>
+
+						@* Job nature: *@
+						<div class="col-lg-3 col-md-6 col-xs-12 pb-2">
+							Job nature:
+							<select id='seluser' asp-for="JobNature">
+								<option value='@JobNatureEnum.FullTime'>Full Time</option>
+								<option value='@JobNatureEnum.Remote'>Remote</option>
+							</select>
+						</div>
+
+
+
+						@* Information *@
+						<div class="col-12 pb-2" style="display:flex;gap:30px;">
+							@* Job Information *@
+							<textarea asp-for="JobDescription" class="summernote pl-2" placeholder="Job Description" style="width:700px;"></textarea>
+							@* Company Information *@
+							<textarea asp-for="Company.CompanyInformation" class="summernote pl-2" placeholder="Company Information" style="width:700px;"></textarea>
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="container mb-5">
+		<div class="forborders">
+			<div class="container">
+				<div class="row">
+					<h4 class="pb-2 pl-2">Tələblər & Əmək Haqqı</h4>
+					<div class="col-12">
+					</div>
+					<div class="col-lg-3 col-md-6 col-xs-12 pb-2">
+
+						@* Təcrübə *@
+						<label>Təcrübə</label>
+						<select id='seluser' asp-for="Experience">
+							<option value='@ExperienceEnum.Junior'>Junior</option>
+							<option value='@ExperienceEnum.Middle'>Middle</option>
+							<option value='@ExperienceEnum.Senior'>Senior</option>
+						</select>
+					</div>
+					<div class="col-lg-2 col-md-6 col-xs-12 pb-2">
+
+						@* Gender *@
+						<label>Gender</label>
+						<select id='seluser' asp-for="Gender">
+							<option value='@GenderEnum.All'>All</option>
+							<option value='@GenderEnum.Male'>Male</option>
+							<option value='@GenderEnum.Female'>Female</option>
+						</select>
+					</div>
+
+					@* Təhsil *@
+					<div class="col-lg-3 col-md-6 col-xs-12 pb-2">
+						<label>Təhsil</label>
+						<select id='seluser' asp-for="Education">
+							<option value='@EducationDegreeEnum.Bachelor'>Bachelor</option>
+							<option value='@EducationDegreeEnum.HighSchoolDiploma'>High School</option>
+							<option value='@EducationDegreeEnum.Master'>Master</option>
+						</select>
+					</div>
+
+					@* Minimum Emek haqqi *@
+					<div class="col-lg-4 col-md-6 col-xs-12 pb-2">
+						<div class="input-group" style="margin-top:32px;">
+							<input type="number" asp-for="MinimumSalary" class="form-control den " aria-label="Amount (to the nearest dollar)" placeholder="Minimum Əmək Haqqı">
+							<div class="input-group-append">
+								<span class="input-group-text">AZN</span>
+							</div>
+						</div>
+					</div>
+
+					@* Maximum Emek haqqi *@
+					<div class="col-lg-4 col-md-6 col-xs-12 pb-2">
+						<div class="input-group">
+							<input type="number" asp-for="MaximumSalary" class="form-control den" aria-label="Amount (to the nearest dollar)" placeholder="Maksimum Əmək Haqqı">
+							<div class="input-group-append">
+								<span class="input-group-text">AZN</span>
+							</div>
+						</div>
+					</div>
+					@* Minimum yash *@
+					<div class="col-lg-2 col-md-6 col-xs-12 pb-2">
+						<div class="input-group mb-3">
+							<input type="number" asp-for="MinimumAge" class="form-control" placeholder="Minimum Age" aria-label="Username" aria-describedby="basic-addon1">
+						</div>
+					</div>
+					@* Maximum yash *@
+					<div class="col-lg-2 col-md-6 col-xs-12 pb-2">
+						<div class="input-group mb-3">
+							<input type="number" asp-for="MaximumAge" class="form-control" placeholder="Maksimum Age" aria-label="Username" aria-describedby="basic-addon1">
+						</div>
+					</div>
+
+					@* Əngəlli Namizədlərdən *@
+					<div class="col-12 pb-3">
+						<div class="form-check">
+							<input class="form-check-input" asp-for="AcceptsDisabledApplicants" type="checkbox" value="@true" id="flexCheckDefault">
+							<label class="form-check-label" for="flexCheckDefault">
+								Accepts disabled applicants?
+							</label>
+						</div>
+					</div>
+
+					@* Natamam CV ilə müraciət *@
+					<div class="col-12 pb-3">
+						<div class="form-check">
+							<input class="form-check-input" asp-for="AcceptsIncompleteCV" type="checkbox" value="@true" id="flexCheckChecked">
+							<label class="form-check-label" for="flexCheckChecked">
+								Accepts incomplete CV?
+							</label>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 col-xs-12">
+				<div class="container mb-5">
+					<div class="forborders">
+						<div class="container">
+							<div class="row">
+								<h4 class="pb-2 pl-2">İş Yeri</h4>
+								<div class="col-12">
+								</div>
+								<div class="col-lg-12 col-md-12 col-xs-12 pb-2 ">
+
+									@* REgion *@
+									<select id='seluser' asp-for="Region">
+										<option value='Absheron'>Absheron</option>
+										<option value='Sumqayit'>Sumqayit</option>
+										<option value='Gence'>Gence</option>
+										<option value='Naxchivan'>Naxchivan</option>
+									</select>
+								</div>
+								@* Address *@
+								<div class="col-lg-12 col-md-12 col-xs-12 pb-2">
+									<div class="input-group mb-3">
+										<input type="text" asp-for="Address" class="form-control" placeholder="Ünvan" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+
+					<script type='text/javascript'>
+						$(document).ready(function () {
+
+							$('#seluser').niceSelect();
+
+						});
+					</script>
+
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-12 col-xs-12">
+				<div class="container mb-5">
+					<div class="forborders">
+						<div class="container">
+							<div class="row">
+								<h4 class="pb-2 pl-2">
+									Əlaqə məlumatları
+								</h4>
+								@* Əlaqədar şəxs *@
+								<div class="col-lg-12 col-md-12 col-xs-12 pb-2">
+									<div class="input-group mb-3">
+										<input type="text" asp-for="ContactPersonName" class="form-control" placeholder="Əlaqədar şəxs" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								@* Elektron ünvan *@
+								<div class="col-lg-12 col-md-12 col-xs-12 pb-2">
+									<div class="input-group mb-3">
+										<input type="email" asp-for="Email" class="form-control" placeholder="Elektron ünvan" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+
+
+								@* Telefon Nömrəsi *@
+								<div class="col-lg-6 col-md-12 col-xs-12 pb-2">
+									<div class="input-group mb-3">
+										<input type="number" asp-for="PhoneNumber" class="form-control" placeholder="Telefon Nömrəsi" aria-label="Username" aria-describedby="basic-addon1">
+									</div>
+								</div>
+
+
+
+							</div>
+
+
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+		<button type="submit" class="btn head-btn1 float-right">Register</button>
+
+	</div>
+</form>
+
+@{
+	var srcLink = "https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js";
+}
+<script>
+	document.querySelectorAll('.btn-check').forEach((checkbox) => {
+		checkbox.addEventListener('change', (event) => {
+			const label = event.target.nextElementSibling;
+			if (event.target.checked) {
+				label.classList.add('active');
+			} else {
+				label.classList.remove('active');
+			}
+		});
+	});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="@srcLink"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

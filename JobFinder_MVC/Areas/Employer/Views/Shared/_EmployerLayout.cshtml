@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - JobFinder_MVC</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/assets/css/style.css" asp-append-version="true" />
+
+
+	<!-- Bootstrap CSS -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+	
+	<partial name="CssLinksPartialView.cshtml"></partial>
+</head>
+<body>
+
+	<header>
+		<partial name="HeaderPartialView.cshtml"></partial>
+		
+	</header>
+
+	<main role="main">
+		@RenderBody()
+	</main>
+
+	<footer>
+		<Partial name="FooterPartialView.cshtml"></Partial>
+	</footer>
+
+	<partial name="Scripts.cshtml"></partial>
+</body>
+</html>

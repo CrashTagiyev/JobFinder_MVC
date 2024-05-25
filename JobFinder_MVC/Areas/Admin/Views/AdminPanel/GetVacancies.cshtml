@@ -1,0 +1,60 @@
+﻿@model List<AdminVacancyVM>
+
+@{
+	ViewData["Title"] = "Vacancy List";
+}
+
+<h1>Vacancy List</h1>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Job Description</th>
+			<th>Minimum Salary</th>
+			<th>Maximum Salary</th>
+			<th>Company</th>
+			<th>Actions</th>
+			<th>Category</th>
+			<th>Tags</th>
+			<!-- Add more headers for other properties as needed -->
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var vacancy in Model)
+		{
+			<tr>
+				<td>@vacancy.Id</td>
+				<td><a style="color:blue !important;" asp-area="AllUsers" asp-controller="FindJob" asp-action="JobDetail" asp-route-id="@vacancy.Id">@vacancy.Title</a></td>
+				<td>@vacancy.JobDescription</td>
+				<td>@vacancy.MinimumSalary</td>
+				<td>@vacancy.MaximumSalary</td>
+				<td>@(vacancy.Company != null ? vacancy.Company.CompanyName : "N/A")</td>
+				<td>
+					<form method="get" asp-area="Admin" asp-controller="AdminPanel" asp-action="UpdateVacancy">
+						<input type="hidden" name="id" value="@vacancy.Id" />
+						<button type="submit" style="color:black !important;">Update</button>
+					</form>
+				</td>
+				<td>@(vacancy.Category != null ? vacancy.Category.Name : "N/A")</td>
+				<td>
+					@if (vacancy.Tags != null && vacancy.Tags.Any())
+					{
+						<ul>
+							@foreach (var tag in vacancy.Tags)
+							{
+								<li>@tag.Name</li>
+							}
+						</ul>
+					}
+					else
+					{
+						<p>-</p>
+					}
+				</td>
+				<!-- Add more columns for other properties as needed -->
+			</tr>
+		}
+	</tbody>
+</table>

@@ -1,0 +1,65 @@
+﻿@model List<AdminCategoryVM>
+
+<h1>Category List</h1>
+
+<form asp-area="Admin" asp-controller="AdminPanel" asp-action="CreateCategory" method="post">
+	<div class="mb-3">
+		<label class="form-label">Create category</label>
+		<input name="Name" class="form-control" type="text" step="0.01" required />
+		<button type="submit" class="btn btn-primary">Update</button>
+	</div>
+</form>
+
+
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Action</th>
+			<th>Created Time</th>
+			<th>Vacancy Names</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model is not null)
+			foreach (var category in Model)
+			{
+				<tr>
+					<td>@category.Id</td>
+					<td>@category.Name</td>
+					<td>
+						<div>
+							<form method="post" asp-area="Admin" asp-controller="AdminPanel" asp-action="Update">
+								<input type="hidden" name="id" value="@category.Id" />
+								<button type="submit" style="color:black !important;">Update</button>
+							</form>
+							<form method="post" asp-area="Admin" asp-controller="AdminPanel" asp-action="DeleteCategory">
+								<input type="hidden" name="id" value="@category.Id" />
+								<button type="submit" style="color:black !important;">Delete</button>
+							</form>
+						</div>
+					</td>
+					<td>@category.CreatedTime.ToString("g")</td> <!-- Format datetime as needed -->
+					<td>
+						@if (category.Vacancies != null && category.Vacancies.Any())
+						{
+							<ul>
+								@foreach (var vacancy in category.Vacancies)
+								{
+									<li>
+										<a style="color:blue !important;" asp-area="AllUsers" asp-controller="FindJob" asp-action="JobDetail" asp-route-id="@vacancy.Id">@vacancy.Title</a>
+									</li>
+								}
+							</ul>
+						}
+						else
+						{
+							<p>No Vacancies</p>
+						}
+					</td>
+				</tr>
+			}
+	</tbody>
+</table>

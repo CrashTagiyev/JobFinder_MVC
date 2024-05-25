@@ -1,0 +1,24 @@
+﻿@model LogInVM
+
+<div  class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-6">
+			<h2>Log In</h2>
+			<form name="LogIn" asp-action="LogIn" asp-controller="Account" method="post">
+				<input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+				<div asp-validation-summary="All" style="color:red;"></div>
+				<div class="form-group">
+					<label for="Email">Email</label>
+					<input type="email" class="form-control" id="Email" asp-for="Email">
+					<span asp-validation-for="Email" style="color:red;"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Password">Password</label>
+					<input type="password" class="form-control" id="Password" asp-for="Password" required>
+					<span asp-validation-for="Password" style="color:red;"></span>
+				</div>
+				<button type="submit" class="btn btn-primary-danger mb-3">Log In</button>
+			</form>
+		</div>
+	</div>
+</div>
