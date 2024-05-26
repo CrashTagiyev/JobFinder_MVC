@@ -54,7 +54,7 @@
 									@{
 										var tags = ViewData["tags"] as MultiSelectList;
 									}
-									@if (tags != null)
+									@if (tags != null && tags.Count()>0)
 									{
 										foreach (var tag in tags)
 										{

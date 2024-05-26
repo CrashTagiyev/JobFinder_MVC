@@ -137,19 +137,28 @@ namespace JobFinder_Application.Services.AdminServices
 			return tagVMs;
 		}
 
-		public async Task<Tag> GetTagByIdAsync(int id)
+		public async Task<AdminTagVM> GetTagByIdAsync(int id)
 		{
-			return await _tagRepository.GetByIdAsync(id);
+			var tag= await _tagRepository.GetByIdAsync(id);
+			var tagVM = _mapper.Map<AdminTagVM>(tag);
+			return tagVM;
 		}
 
-		public async Task AddTagAsync(Tag tag)
+		public async Task AddTagAsync(AdminCreateTagVM tagVM)
 		{
+			var tag = _mapper.Map<Tag>(tagVM);
 			await _tagRepository.CreateAsync(tag);
 		}
 
-		public async Task UpdateTagAsync(Tag tag)
+		public async Task UpdateTagAsync(AdminUpdateTagVM tagVM)
 		{
-			await _tagRepository.UpdateAsync(tag);
+			var updatedTag = _mapper.Map<Tag>(tagVM);
+
+			if (updatedTag is not null)
+			{
+				await _tagRepository.UpdateAsync(updatedTag);
+				await _tagRepository.SaveChangesAsync();
+			}
 		}
 
 		public async Task DeleteTagAsync(int id)

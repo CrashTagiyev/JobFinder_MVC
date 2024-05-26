@@ -23,7 +23,7 @@ namespace JobFinder_Presentation.Areas.Employer.Controllers
 		private readonly UserManager<AppUser> _userManager;
 		private readonly IWebHostEnvironment _webHostEnvironment;
 		private readonly string CompanyLogoFolderPath;
-		public CreateVacancyController(VacancyServices vacancyServices,  UserManager<AppUser> userManager, IWebHostEnvironment webHostEnvironment)
+		public CreateVacancyController(VacancyServices vacancyServices, UserManager<AppUser> userManager, IWebHostEnvironment webHostEnvironment)
 		{
 			_vacancyServices = vacancyServices;
 			_userManager = userManager;
@@ -69,8 +69,10 @@ namespace JobFinder_Presentation.Areas.Employer.Controllers
 		{
 			var tags = await _vacancyServices.GetTagsSelectListItemsAsync();
 			var categories = await _vacancyServices.GetCategorySelectListItemsAsync();
-			ViewData["tags"] = new MultiSelectList(tags, "Value", "Text");
-			ViewData["newVacancyCategories"] = new SelectList(categories, "Value", "Text");
+			{
+				ViewData["tags"] = new MultiSelectList(tags, "Value", "Text");
+				ViewData["newVacancyCategories"] = new SelectList(categories, "Value", "Text");
+			}
 		}
 	}
 }

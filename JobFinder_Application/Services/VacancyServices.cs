@@ -99,9 +99,9 @@ namespace JobFinder_Application.Services
 			var tags = await _tagRepository.GetAllAsync();
 			var selectItemsTags = new List<SelectListItem>();
 
-			if (tags != null && tags.Any()) { }
-			foreach (Tag tag in tags)
-				selectItemsTags.Add(new SelectListItem { Value = tag.Id.ToString(), Text = tag.Name });
+			if (tags != null && tags.Any())
+				foreach (Tag tag in tags)
+					selectItemsTags.Add(new SelectListItem { Value = tag.Id.ToString(), Text = tag.Name });
 
 			return selectItemsTags;
 		}
@@ -112,9 +112,11 @@ namespace JobFinder_Application.Services
 
 
 			if (categories != null && categories.Any())
+			{
 				foreach (Category cat in categories)
 					selectItemsCategories.Add(new SelectListItem { Value = cat.Id.ToString(), Text = cat.Name });
-			selectItemsCategories[0].Selected = true;	
+				selectItemsCategories[0].Selected = true;
+			}
 
 			return selectItemsCategories;
 		}

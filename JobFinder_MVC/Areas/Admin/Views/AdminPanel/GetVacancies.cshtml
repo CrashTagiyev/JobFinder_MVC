@@ -32,10 +32,16 @@
 				<td>@vacancy.MaximumSalary</td>
 				<td>@(vacancy.Company != null ? vacancy.Company.CompanyName : "N/A")</td>
 				<td>
-					<form method="get" asp-area="Admin" asp-controller="AdminPanel" asp-action="UpdateVacancy">
-						<input type="hidden" name="id" value="@vacancy.Id" />
-						<button type="submit" style="color:black !important;">Update</button>
-					</form>
+					<div>
+						<form method="get" asp-area="Admin" asp-controller="AdminPanel" asp-action="UpdateVacancy">
+							<input type="hidden" name="id" value="@vacancy.Id" />
+							<button type="submit"  class="btn-primary mb-1" style="border:0px solid white !important;">Update</button>
+						</form>
+						<form method="post" asp-area="Admin" asp-controller="AdminPanel" asp-action="DeleteVacancy">
+							<input type="hidden" name="id" value="@vacancy.Id" />
+							<button type="submit" class="btn-primary mb-1" style="border:0px solid white !important;">Delete</button>
+						</form>
+					</div>
 				</td>
 				<td>@(vacancy.Category != null ? vacancy.Category.Name : "N/A")</td>
 				<td>

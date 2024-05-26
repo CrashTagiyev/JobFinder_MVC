@@ -122,7 +122,43 @@ namespace JobFinder_Presentation.Areas.Admin.Controllers
 		}
 
 
+		[HttpGet]
+		public IActionResult CreateTag()
+		{
+			return RedirectToAction("GetTags");
+		}
 
+		[HttpPost]
+		public async Task<IActionResult> CreateTag(AdminCreateTagVM createTagVM)
+		{
+			await _adminService.AddTagAsync(createTagVM);
+			return RedirectToAction("GetTags");
+		}
+		[HttpGet]
+		public async Task<IActionResult> UpdateTag(int id)
+		{
+			var tagVM = await _adminService.GetTagByIdAsync(id);
+
+			var updateVm = new AdminUpdateCategoryVM { Id = tagVM.Id, Name = tagVM!.Name! };
+
+			return View(updateVm);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> UpdateTag(AdminUpdateTagVM tagVM)
+		{
+			await _adminService.UpdateTagAsync(tagVM);
+			return RedirectToAction("GetTags");
+		}
+
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteTag(int id)
+		{
+			await _adminService.DeleteTagAsync(id);
+			return RedirectToAction("GetTags");
+		}
+	
 
 	}
 }

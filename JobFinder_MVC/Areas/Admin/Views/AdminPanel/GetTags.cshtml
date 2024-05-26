@@ -1,40 +1,63 @@
 ﻿@model List<AdminTagVM>
 
 
+
 <h1>Tag List</h1>
+<div>
+	<form asp-area="Admin" asp-controller="AdminPanel" asp-action="CreateTag" method="post">
+		<div class="mb-3">
+			<label class="form-label">Create tag</label>
+			<input name="Name" class="form-control" type="text" step="0.01" required />
+			<button type="submit" class="btn btn-primary">Create Tag</button>
+		</div>
+	</form>
+</div>
 
 <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Created Time</th>
-            <th>Vacancies</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tag in Model)
-        {
-            <tr>
-                <td>@tag.Id</td>
-                <td>@tag.Name</td>
-                <td>@tag.CreatedTime.ToString("g")</td> <!-- Format datetime as needed -->
-                <td>
-                    @if (tag.Vacancies != null && tag.Vacancies.Any())
-                    {
-                        <ul>
-                            @foreach (var vacancy in tag.Vacancies)
-                            {
-                                <li><a style="color:blue !important;" asp-area="AllUsers" asp-controller="FindJob" asp-action="JobDetail" asp-route-id="@vacancy.Id">@vacancy.Title</a></li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <p>No Vacancies</p>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Created Time</th>
+			<th>Actions</th>
+			<th>Vacancies</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var tag in Model)
+		{
+			<tr>
+				<td>@tag.Id</td>
+				<td>@tag.Name</td>
+				<td>
+					<div>
+						<form method="get" asp-area="Admin" asp-controller="AdminPanel" asp-action="UpdateTag">
+							<input type="hidden" name="id" value="@tag.Id" />
+							<button type="submit" class="btn-primary mb-1" style="border:0px solid white !important;">Update</button>
+						</form>
+						<form method="post" asp-area="Admin" asp-controller="AdminPanel" asp-action="DeleteTag">
+							<input type="hidden" name="id" value="@tag.Id" />
+							<button type="submit"  class="btn-primary mb-1" style="border:0px solid white !important;">Delete</button>
+						</form>
+					</div>
+				</td>
+				<td>@tag.CreatedTime.ToString("g")</td> <!-- Format datetime as needed -->
+				<td>
+					@if (tag.Vacancies != null && tag.Vacancies.Any())
+					{
+						<ul>
+							@foreach (var vacancy in tag.Vacancies)
+							{
+								<li><a style="color:blue !important;" asp-area="AllUsers" asp-controller="FindJob" asp-action="JobDetail" asp-route-id="@vacancy.Id">@vacancy.Title</a></li>
+							}
+						</ul>
+					}
+					else
+					{
+						<p>No Vacancies</p>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

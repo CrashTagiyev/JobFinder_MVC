@@ -6,7 +6,7 @@
 	<div class="mb-3">
 		<label class="form-label">Create category</label>
 		<input name="Name" class="form-control" type="text" step="0.01" required />
-		<button type="submit" class="btn btn-primary">Update</button>
+		<button type="submit" class="btn btn-primary">Create</button>
 	</div>
 </form>
 
@@ -33,11 +33,11 @@
 						<div>
 							<form method="get" asp-area="Admin" asp-controller="AdminPanel" asp-action="UpdateCategory">
 								<input type="hidden" name="id" value="@category.Id" />
-								<button type="submit" style="color:black !important;">Update</button>
+								<button type="submit" class="btn-primary mb-1" style="border:0px solid white !important;" >Update</button>
 							</form>
 							<form method="post" asp-area="Admin" asp-controller="AdminPanel" asp-action="DeleteCategory">
 								<input type="hidden" name="id" value="@category.Id" />
-								<button type="submit" style="color:black !important;">Delete</button>
+								<button type="submit" class="btn-primary" style="border:0px solid white !important;">Delete</button>
 							</form>
 						</div>
 					</td>

@@ -5,18 +5,21 @@ using JobFinder_Domain.ViewModels.AdminViewModels;
 
 namespace JobFinder_Presentation.AutoMapper.AdminsVMMappingProfile
 {
-    public class AdminMappingProfile : Profile
-    {
-        public AdminMappingProfile()
-        {
-            //Admin View models Mapping
-            CreateMap<Category, AdminCategoryVM>();
-            CreateMap<Tag, AdminTagVM>();
-            CreateMap<AppUser, AdminUserVM>();
-            CreateMap<Vacancy, AdminVacancyVM>();
-            CreateMap<Company, AdminCompanyVM>();
-            CreateMap<Category, AdminUpdateCategoryVM>();
-            CreateMap<AdminCategoryVM, AdminUpdateCategoryVM>();
+	public class AdminMappingProfile : Profile
+	{
+		public AdminMappingProfile()
+		{
+			//Admin View models Mapping
+			CreateMap<AppUser, AdminUserVM>();
+			CreateMap<Vacancy, AdminVacancyVM>();
+			CreateMap<Company, AdminCompanyVM>();
+			CreateMap<Category, AdminCategoryVM>();
+			CreateMap<AdminCategoryVM, AdminUpdateCategoryVM>();
+			CreateMap<Category, AdminUpdateCategoryVM>();
+			CreateMap<Tag, AdminTagVM>();
+			CreateMap<Tag, AdminCreateTagVM>();
+			CreateMap<Tag, AdminUpdateTagVM>();
+
 
 			//reverse
 			CreateMap<AdminUpdateCategoryVM, Category>();
@@ -26,6 +29,9 @@ namespace JobFinder_Presentation.AutoMapper.AdminsVMMappingProfile
 			CreateMap<AdminUserVM, AppUser>();
 			CreateMap<AdminVacancyVM, Vacancy>();
 			CreateMap<AdminCompanyVM, Company>();
+			CreateMap<AdminUpdateCategoryVM, AdminCategoryVM>();
+			CreateMap<AdminCreateTagVM, Tag>();
+			CreateMap<AdminUpdateTagVM, Tag>();
 		}
-    }
+	}
 }
