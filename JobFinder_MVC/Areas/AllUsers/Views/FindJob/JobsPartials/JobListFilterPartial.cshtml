@@ -36,6 +36,9 @@
 					<select asp-items="categories" asp-for="CategoryName">
 						<option selected="selected">All</option>
 					</select>
+					<div class="small-section-tittle2 mt-4">
+						<h4>Tags</h4>
+					</div>
 					<div class="card card-body flex-container" style="display:flex;flex-direction:row;gap:5px;flex-wrap:wrap">
 						@{
 							var filterTags = ViewData["tags"] as MultiSelectList;
@@ -139,7 +142,7 @@
 				</div>
 				<!-- select-Categories End -->
 			</div>
-			<button type="submit" class="btn-primary danger">Filter</button>
+			<button type="submit" class="btn btn-primary danger">Filter</button>
 	</form>
 	<div class="single-listing">
 		<!-- Range Slider Start -->

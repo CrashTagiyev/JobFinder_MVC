@@ -66,28 +66,29 @@ app.MapControllerRoute(
 using var container = app.Services.CreateScope();
 var usermanager = container.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 var roleManager = container.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
 var dbContext = container.ServiceProvider.GetRequiredService<JobFinderDbContext>();
 
-//dbContext.Tags.RemoveRange(dbContext.Tags.ToArray());
-//dbContext.SaveChanges();
-//var tag1 = new Tag() { Name = "Asp.NET DEV" };
-//var tag2 = new Tag() { Name = "Asp C# .Net" };
-//var tag3 = new Tag() { Name = "FrontEndJSCSSHTML" };
-//await dbContext.Tags.AddAsync(tag1);
-//await dbContext.Tags.AddAsync(tag2);
-//await dbContext.Tags.AddAsync(tag3);
-//await dbContext.SaveChangesAsync();
+
+dbContext.Tags.RemoveRange(dbContext.Tags.Where(t=>t.Name== "Asp.NET DEV" || t.Name== "Front end Developer" || t.Name== "CSS HTML JS"));
+dbContext.SaveChanges();
+var tag1 = new Tag() { Name = "Asp.NET DEV" };
+var tag2 = new Tag() { Name = "Front end Developer" };
+var tag3 = new Tag() { Name = "CSS HTML JS" }; 
+await dbContext.Tags.AddAsync(tag1);
+await dbContext.Tags.AddAsync(tag2);
+await dbContext.Tags.AddAsync(tag3);
+await dbContext.SaveChangesAsync();
 
 
-//dbContext.Categories.RemoveRange(dbContext.Categories.ToArray());
-//var cat1 = new Category() { Name = "Web Developer" };
-//var cat2 = new Category() { Name = "Back-end Developer" };
-//var cat3 = new Category() { Name = "Fron-end Developer" };
-//await dbContext.Categories.AddAsync(cat1);
-//await dbContext.Categories.AddAsync(cat2);
-//await dbContext.Categories.AddAsync(cat3);
-//await dbContext.SaveChangesAsync();
+dbContext.Categories.RemoveRange(dbContext.Categories.Where(c=>c.Name== "C# Developer" || c.Name== "Back-end Developer" || c.Name== "Front end Developer"));
+dbContext.SaveChanges();
+var cat1 = new Category() { Name = "C# Developer" };
+var cat2 = new Category() { Name = "Back-end Developer" };
+var cat3 = new Category() { Name = "Front end Developer" };
+await dbContext.Categories.AddAsync(cat1);
+await dbContext.Categories.AddAsync(cat2);
+await dbContext.Categories.AddAsync(cat3);
+await dbContext.SaveChangesAsync();
 
 var employerRole = await roleManager.RoleExistsAsync("Employer");
 if (!employerRole)
